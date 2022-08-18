@@ -105,12 +105,12 @@ var ScoreHeaderModel = /** @class */ (function () {
                     1: {
                         // Grace
                         type: 1,
-                        size: 60,
+                        size: 60, // Not sure what 60 refers to. Our grace notes are 1.9 spaces
                     },
                     0: {
                         // Cue
                         type: 0,
-                        size: 60,
+                        size: 60, // Not sure what 60 refers to. Our cue notes are 1.9 spaces.
                     },
                 },
                 otherAppearances: [],
@@ -184,7 +184,7 @@ var ScoreHeaderModel = /** @class */ (function () {
             this._setIdentification("composer", composer);
             this._setCredits("composer", composer, LeftCenterRight.Right, "12px", 20);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ScoreHeaderModel.prototype, "arranger", {
@@ -195,7 +195,7 @@ var ScoreHeaderModel = /** @class */ (function () {
             this._setIdentification("arranger", arranger);
             this._setCredits("arranger", arranger, LeftCenterRight.Right, "12px", 35);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ScoreHeaderModel.prototype, "lyricist", {
@@ -206,7 +206,7 @@ var ScoreHeaderModel = /** @class */ (function () {
             this._setIdentification("lyricist", lyricist);
             this._setCredits("lyricist", lyricist, LeftCenterRight.Right, "12px", 50);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ScoreHeaderModel.prototype, "title", {
@@ -218,7 +218,7 @@ var ScoreHeaderModel = /** @class */ (function () {
             this.movementTitle = title;
             this._setCredits("title", title, LeftCenterRight.Center, "18px", 10);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     ScoreHeaderModel.prototype.toXML = function () {

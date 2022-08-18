@@ -34,7 +34,7 @@ var DivisionOverflowException = /** @class */ (function () {
         this.measure = measure;
         this.message =
             "DivisionOverflowException: max division should be " +
-                (maxDiv + " in measure " + this.measure.idx);
+                "".concat(maxDiv, " in measure ").concat(this.measure.idx);
         this.stack = new Error().stack;
         this.maxDiv = maxDiv;
         this.oldParts = {

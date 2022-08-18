@@ -90,7 +90,7 @@ var BarlineModel = /** @class */ (function () {
         return new BarlineModel.Layout(this, cursor);
     };
     BarlineModel.prototype.toXML = function () {
-        return serializeBarline(this) + "\n<forward><duration>" + this.divCount + "</duration></forward>\n";
+        return "".concat(serializeBarline(this), "\n<forward><duration>").concat(this.divCount, "</duration></forward>\n");
     };
     BarlineModel.prototype.inspect = function () {
         return this.toXML();

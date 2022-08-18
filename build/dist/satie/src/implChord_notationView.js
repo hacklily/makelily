@@ -19,10 +19,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -63,7 +65,7 @@ var NotationView = /** @class */ (function (_super) {
             // TODO
         });
         forEach(model.articulations, function (articulation, idx) {
-            children.push(React.createElement(Articulation, { articulation: articulation, key: "art" + idx, defaultX: nlayout ? nlayout.model[0].defaultX : 0 }));
+            children.push(React.createElement(Articulation, { articulation: articulation, key: "art".concat(idx), defaultX: nlayout ? nlayout.model[0].defaultX : 0 }));
         });
         forEach(model.dynamics, function (_dynamic) {
             // TODO
@@ -83,7 +85,7 @@ var NotationView = /** @class */ (function (_super) {
                     shape = "fermata";
                     break;
             }
-            children.push(React.createElement(Glyph, { fill: "black", glyphName: "" + shape + direction, key: "fer" + idx, x: originX + fermata.defaultX + (fermata.relativeX || 0), y: (_this.context.originY || 0) -
+            children.push(React.createElement(Glyph, { fill: "black", glyphName: "".concat(shape).concat(direction), key: "fer".concat(idx), x: originX + fermata.defaultX + (fermata.relativeX || 0), y: (_this.context.originY || 0) -
                     fermata.defaultY -
                     (fermata.relativeY || 0) }));
         });
@@ -128,7 +130,7 @@ var NotationView = /** @class */ (function (_super) {
                 technical.upBow;
             children.push(React.createElement(Glyph, { fill: t.color || "black", glyphName: technicalGlyph(technical, !("placement" in t) || t.placement === AboveBelow.Below
                     ? "Below"
-                    : "Above"), key: "tech" + idx, x: originX +
+                    : "Above"), key: "tech".concat(idx), x: originX +
                     (("defaultX" in t ? t.defaultX : 0) || 0) +
                     (("relativeX" in t ? t.relativeX : 0) || 0), y: (_this.context.originY || 0) -
                     ("defaultY" in t ? t.defaultY : 0) -

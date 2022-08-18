@@ -15,6 +15,21 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with Satie.  If not, see <http://www.gnu.org/licenses/>.
  */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var _a;
 import { BeamType, Count, } from "musicxml-interfaces";
 import { buildNote, patchNote, buildBarline, patchBarline, buildBeam, buildAttributes, patchAttributes, buildDirection, patchDirection, buildPrint, patchPrint, } from "musicxml-interfaces/builders";
@@ -65,18 +80,27 @@ function moreImportant(type, model, doc) {
     }
     return false;
 }
-var StaffBuilder = /** @class */ (function () {
-    function StaffBuilder(segment, document, idx) {
+var BaseBuilder = /** @class */ (function () {
+    function BaseBuilder() {
         this._patches = [];
-        this._segment = segment;
-        this._document = document;
-        this._idx = idx;
+    }
+    return BaseBuilder;
+}());
+export { BaseBuilder };
+var StaffBuilder = /** @class */ (function (_super) {
+    __extends(StaffBuilder, _super);
+    function StaffBuilder(segment, document, idx) {
+        var _this = _super.call(this) || this;
+        _this._segment = segment;
+        _this._document = document;
+        _this._idx = idx;
+        return _this;
     }
     Object.defineProperty(StaffBuilder.prototype, "patches", {
         get: function () {
             return this._patches.slice();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     StaffBuilder.prototype.at = function (idx) {
@@ -118,9 +142,7 @@ var StaffBuilder = /** @class */ (function () {
         if (diff) {
             // Note: we should enforce this to not be possible, since the staff segment should
             // always be full.
-            return this.at(this._segment.length)
-                .insertSpacer(diff)
-                .next();
+            return this.at(this._segment.length).insertSpacer(diff).next();
         }
         return this.at(this._segment.length);
     };
@@ -209,20 +231,22 @@ var StaffBuilder = /** @class */ (function () {
         return this;
     };
     return StaffBuilder;
-}());
+}(BaseBuilder));
 export { StaffBuilder };
-var VoiceBuilder = /** @class */ (function () {
+var VoiceBuilder = /** @class */ (function (_super) {
+    __extends(VoiceBuilder, _super);
     function VoiceBuilder(segment, document, idx) {
-        this._patches = [];
-        this._segment = segment;
-        this._document = document;
-        this._idx = idx;
+        var _this = _super.call(this) || this;
+        _this._segment = segment;
+        _this._document = document;
+        _this._idx = idx;
+        return _this;
     }
     Object.defineProperty(VoiceBuilder.prototype, "patches", {
         get: function () {
             return this._patches.slice();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     VoiceBuilder.prototype.at = function (idx) {
@@ -280,7 +304,7 @@ var VoiceBuilder = /** @class */ (function () {
         return this;
     };
     return VoiceBuilder;
-}());
+}(BaseBuilder));
 export { VoiceBuilder };
 var PartBuilder = /** @class */ (function () {
     function PartBuilder(part, document) {
@@ -292,7 +316,7 @@ var PartBuilder = /** @class */ (function () {
         get: function () {
             return this._patches.slice();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     PartBuilder.prototype.voice = function (voiceID, builder, idx) {
@@ -320,7 +344,7 @@ var MeasureBuilder = /** @class */ (function () {
         get: function () {
             return this._patches.slice();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     MeasureBuilder.prototype.part = function (partID, builder) {
@@ -341,12 +365,12 @@ var DocumentBuilder = /** @class */ (function () {
         get: function () {
             return this._patches.slice();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     DocumentBuilder.prototype.measure = function (measureUUID, builder) {
         var measure = find(this._doc.measures, function (it) { return it.uuid === measureUUID; });
-        invariant(Boolean(measure), "invalid measure uuid " + measureUUID);
+        invariant(Boolean(measure), "invalid measure uuid ".concat(measureUUID));
         this._patches = this._patches.concat(builder(new MeasureBuilder(measure, this._doc)).patches.map(_prependPatch(measureUUID)));
         return this;
     };
@@ -435,13 +459,13 @@ function getMutationInfo(document, patches) {
             return;
         }
         var part = measure.parts[patch.p[2]];
-        invariant(part, "part " + patch.p[2] + " should exist in measure " + measureUUID);
+        invariant(part, "part ".concat(patch.p[2], " should exist in measure ").concat(measureUUID));
         if (patch.p[3] === "staves") {
             return;
         }
         invariant(patch.p[3] === "voices", "only voices are supported here");
         var voice = part.voices[patch.p[4]];
-        invariant(voice, "expected to find voice " + patch.p[4] + " in part " + patch.p[2] + " in measure " + measureUUID);
+        invariant(voice, "expected to find voice ".concat(patch.p[4], " in part ").concat(patch.p[2], " in measure ").concat(measureUUID));
         var segID = patch.p.slice(0, 5).join("++");
         if (!segments[segID]) {
             segments[segID] = voice;
@@ -550,7 +574,7 @@ function getMutationInfo(document, patches) {
             return;
         }
         var el = voice[patch.p[5]];
-        invariant(el, "expected to find element $" + patch.p[5] + " in part " + patch.p[2] + " in voice " + patch.p[4] + " in measure " + measureUUID);
+        invariant(el, "expected to find element $".concat(patch.p[5], " in part ").concat(patch.p[2], " in voice ").concat(patch.p[4], " in measure ").concat(measureUUID));
         if (!document.modelHasType(el, Type.Chord) ||
             patch.p[6] !== "notes" ||
             patch.p[7] !== 0) {
@@ -612,11 +636,9 @@ function getMutationInfo(document, patches) {
 }
 function fixMetre(document, patches) {
     patches = patches.slice();
-    var attributes;
-    var elementInfos;
     var mi = getMutationInfo(document, patches);
-    attributes = mi.attributes;
-    elementInfos = mi.elementInfos;
+    var attributes = mi.attributes;
+    var elementInfos = mi.elementInfos;
     forEach(elementInfos, function (voiceInfo, key) {
         var anyChanged = voiceInfo.some(function (n) { return n.touched; });
         if (!anyChanged) {

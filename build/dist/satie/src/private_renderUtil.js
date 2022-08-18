@@ -29,7 +29,8 @@ export var rastalToHeight = [
     6,
     5.5,
     4.8,
-    3.7,
+    3.7, // full score
+    // Tags from Behind Bars by Elaine Gould, pp. 483
 ];
 export var pageSizes = [
     // Sizes to actually display

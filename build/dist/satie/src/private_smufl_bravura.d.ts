@@ -15,5 +15,5 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with Satie.  If not, see <http://www.gnu.org/licenses/>.
  */
-declare let Bravura: any;
+declare const Bravura: any;
 export default Bravura;

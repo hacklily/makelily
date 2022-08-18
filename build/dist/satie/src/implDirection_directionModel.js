@@ -47,7 +47,7 @@ var DirectionModel = /** @class */ (function () {
         return new DirectionModel.Layout(this, cursor);
     };
     DirectionModel.prototype.toXML = function () {
-        return serializeDirection(this) + "\n<forward><duration>" + this.divCount + "</duration></forward>\n";
+        return "".concat(serializeDirection(this), "\n<forward><duration>").concat(this.divCount, "</duration></forward>\n");
     };
     DirectionModel.prototype.toJSON = function () {
         var _a = this, _class = _a._class, directionTypes = _a.directionTypes, staff = _a.staff, offset = _a.offset, sound = _a.sound, placement = _a.placement, voice = _a.voice, footnote = _a.footnote, level = _a.level, data = _a.data;

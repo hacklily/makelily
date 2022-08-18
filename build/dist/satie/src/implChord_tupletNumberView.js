@@ -19,10 +19,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -46,7 +48,7 @@ var TupletNumber = /** @class */ (function (_super) {
         var _a = this.props, x1 = _a.x1, x2 = _a.x2, y1 = _a.y1, y2 = _a.y2, tuplet = _a.tuplet;
         var placement = tuplet.placement;
         var text = tuplet.tupletActual.tupletNumber.text;
-        var symbols = map(text, function (char) { return "tuplet" + char; });
+        var symbols = map(text, function (char) { return "tuplet".concat(char); });
         var boxes = map(symbols, function (symbol) { return bboxes[symbol]; });
         var widths = map(boxes, function (box) { return (box[0] - box[2]) * 10; });
         var width = reduce(widths, function (total, width) { return total + width; }, 0);
@@ -75,7 +77,7 @@ var TupletNumber = /** @class */ (function (_super) {
                     "," +
                     (y - boxes[0][1] * 10), stroke: "white", strokeWidth: 0 }),
             map(symbols, function (sym, index) {
-                return (React.createElement(Glyph, { key: "glyph" + index, fill: "#000000", glyphName: sym, x: xs[index] + offset - width / 2, y: y }));
+                return (React.createElement(Glyph, { key: "glyph".concat(index), fill: "#000000", glyphName: sym, x: xs[index] + offset - width / 2, y: y }));
             })));
     };
     return TupletNumber;

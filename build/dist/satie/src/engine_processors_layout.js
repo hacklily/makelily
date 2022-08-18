@@ -135,7 +135,7 @@ function getLinePlacementHints(measures) {
             widthByShortest: widthByShortest,
             shortestCount: shortestInMeasure,
             attributesWidthStart: 150,
-            attributesWidthEnd: 50,
+            attributesWidthEnd: 50, // XXX
         };
     });
 }
@@ -169,7 +169,8 @@ export default function layoutSong(options) {
     });
     if (!options.preview) {
         var oldLineCleanliness = options.document.cleanlinessTracking.lines || [];
-        var newLineCleanliness = layoutOpts.map(function (line) { return line.measures.map(function (measure) { return measure.uuid; }); }) || [];
+        var newLineCleanliness = layoutOpts.map(function (line) { return line.measures.map(function (measure) { return measure.uuid; }); }) ||
+            [];
         var _loop_1 = function (i) {
             var oldLine = oldLineCleanliness[i] || [];
             var newLine = newLineCleanliness[i] || [];

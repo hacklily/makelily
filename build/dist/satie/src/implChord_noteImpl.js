@@ -98,7 +98,7 @@ var NoteImpl = /** @class */ (function () {
         set: function (stem) {
             this._parent.stem = stem;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     /*---- Implementation -------------------------------------------------------------------*/
@@ -174,7 +174,9 @@ var NoteImpl = /** @class */ (function () {
             });
         }
         if (this.pitch && this.rest) {
-            cursor.patch(function (voice) { return voice.note(_this._idx, function (note) { return note.pitch(null); }); });
+            cursor.patch(function (voice) {
+                return voice.note(_this._idx, function (note) { return note.pitch(null); });
+            });
         }
         invariant(cursor.segmentInstance.ownerType === "voice", "Expected to be in voice's context during validation");
         if (this.voice !== cursor.segmentInstance.owner) {
@@ -402,7 +404,9 @@ var NoteImpl = /** @class */ (function () {
             }
         }
         if (!isEqual(cloneObject(this.accidental), acc) && cursor.patch) {
-            cursor.patch(function (part) { return part.note(_this._idx, function (note) { return note.accidental(acc); }); });
+            cursor.patch(function (part) {
+                return part.note(_this._idx, function (note) { return note.accidental(acc); });
+            });
         }
     };
     return NoteImpl;

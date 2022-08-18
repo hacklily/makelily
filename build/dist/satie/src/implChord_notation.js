@@ -24,7 +24,7 @@ export function articulationDirectionMatters(model) {
 }
 export function articulationGlyph(model, direction) {
     if (model.accent) {
-        return "articAccent" + direction;
+        return "articAccent".concat(direction);
     }
     if (model.breathMark) {
         return "breathMarkComma";
@@ -33,7 +33,7 @@ export function articulationGlyph(model, direction) {
         return "caesura";
     }
     if (model.detachedLegato) {
-        return "articTenutoStaccato" + direction;
+        return "articTenutoStaccato".concat(direction);
     }
     if (model.doit) {
         return null;
@@ -48,25 +48,25 @@ export function articulationGlyph(model, direction) {
         return null;
     }
     if (model.spiccato) {
-        return "articStaccatissimoWedge" + direction;
+        return "articStaccatissimoWedge".concat(direction);
     }
     if (model.staccatissimo) {
-        return "articStaccatissimo" + direction;
+        return "articStaccatissimo".concat(direction);
     }
     if (model.staccato) {
-        return "articStaccato" + direction;
+        return "articStaccato".concat(direction);
     }
     if (model.stress) {
-        return "articStress" + direction;
+        return "articStress".concat(direction);
     }
     if (model.strongAccent) {
-        return "articMarcato" + direction;
+        return "articMarcato".concat(direction);
     }
     if (model.tenuto) {
-        return "articTenuto" + direction;
+        return "articTenuto".concat(direction);
     }
     if (model.unstress) {
-        return "articUnstress" + direction;
+        return "articUnstress".concat(direction);
     }
     console.warn("Unknown articulation...");
     return null;
@@ -79,7 +79,7 @@ export function technicalGlyph(model, direction) {
         return "brassBend";
     }
     if (model.doubleTongue) {
-        return "doubleTongue" + direction;
+        return "doubleTongue".concat(direction);
     }
     if (model.downBow) {
         if (direction === "Below") {
@@ -90,7 +90,7 @@ export function technicalGlyph(model, direction) {
         }
     }
     if (model.fingering) {
-        return "fingering" + model.fingering.finger;
+        return "fingering".concat(model.fingering.finger);
     }
     if (model.fingernails) {
         return "pluckedWithFingernails";
@@ -128,7 +128,7 @@ export function technicalGlyph(model, direction) {
         return null;
     }
     if (model.snapPizzicato) {
-        return "pluckedSnapPizzicato" + direction;
+        return "pluckedSnapPizzicato".concat(direction);
     }
     if (model.stopped) {
         return "pluckedLeftHandPizzicato";
@@ -149,7 +149,7 @@ export function technicalGlyph(model, direction) {
         return "keyboardPedalToe1";
     }
     if (model.tripleTongue) {
-        return "tripleTongue" + direction;
+        return "tripleTongue".concat(direction);
     }
     if (model.upBow) {
         if (direction === "Below") {

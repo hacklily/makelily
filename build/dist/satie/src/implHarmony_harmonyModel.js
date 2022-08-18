@@ -51,7 +51,7 @@ var HarmonyModel = /** @class */ (function () {
                     break;
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     HarmonyModel.prototype.refresh = function (_cursor) {
@@ -62,7 +62,7 @@ var HarmonyModel = /** @class */ (function () {
         return new HarmonyModel.Layout(this, cursor);
     };
     HarmonyModel.prototype.toXML = function () {
-        return serializeHarmony(this) + "\n<forward><duration>" + this.divCount + "</duration></forward>\n";
+        return "".concat(serializeHarmony(this), "\n<forward><duration>").concat(this.divCount, "</duration></forward>\n");
     };
     HarmonyModel.prototype.inspect = function () {
         return this.toXML();

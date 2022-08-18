@@ -19,10 +19,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -44,7 +46,7 @@ var MeasureView = /** @class */ (function (_super) {
     MeasureView.prototype.render = function () {
         var _this = this;
         var layout = this.props.layout;
-        return (React.createElement("g", { transform: "translate(" + layout.originX + ")" }, chain(flatten(layout.elements))
+        return (React.createElement("g", { transform: "translate(".concat(layout.originX, ")") }, chain(flatten(layout.elements))
             .filter(function (layout) { return !!layout.model; }) // Remove helpers.
             .map(function (layout) { return (React.createElement(ModelView, { key: layout.key, version: _this.props.layout.getVersion(), layout: layout, originX: _this.props.layout.originX })); })
             .value()));
@@ -86,7 +88,7 @@ var MeasureView = /** @class */ (function (_super) {
         return this.context.originY - y;
     };
     MeasureView.prototype.shouldComponentUpdate = function (nextProps) {
-        invariant(!isNaN(this.props.version), "Invalid non-numeric version " + this.props.version);
+        invariant(!isNaN(this.props.version), "Invalid non-numeric version ".concat(this.props.version));
         return (this.props.version !== nextProps.version ||
             this.props.layout.originX !== nextProps.layout.originX ||
             this.props.layout.width !== nextProps.layout.width);

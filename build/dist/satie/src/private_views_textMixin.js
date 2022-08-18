@@ -80,7 +80,7 @@ export var Prototype = {
     },
     getTransform: function (words) {
         if (words.rotation) {
-            return "rotate(" + words.rotation + ")";
+            return "rotate(".concat(words.rotation, ")");
         }
         return undefined;
     },

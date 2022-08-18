@@ -39,7 +39,7 @@ var SoundModel = /** @class */ (function () {
         return new SoundModel.Layout(this, cursor);
     };
     SoundModel.prototype.toXML = function () {
-        return serializeSound(this) + "\n<forward><duration>" + this.divCount + "</duration></forward>\n";
+        return "".concat(serializeSound(this), "\n<forward><duration>").concat(this.divCount, "</duration></forward>\n");
     };
     SoundModel.prototype.inspect = function () {
         return this.toXML();

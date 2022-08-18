@@ -83,7 +83,8 @@ function beam(_options, _bounds, measures) {
                     });
                     return;
                 }
-                var beams = targetNote.beams, voice = targetNote.voice;
+                var beams = targetNote.beams;
+                var voice = targetNote.voice;
                 if (!beams) {
                     beams = [];
                 }
@@ -221,7 +222,7 @@ function beam(_options, _bounds, measures) {
                             }
                             break;
                         default:
-                            throw new Error("Unknown type " + beam.type);
+                            throw new Error("Unknown type ".concat(beam.type));
                     }
                 })
                     .value();

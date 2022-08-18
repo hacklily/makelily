@@ -123,84 +123,84 @@ var LayoutCursor = /** @class */ (function () {
         get: function () {
             return this._validationCursor.document;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(LayoutCursor.prototype, "segmentInstance", {
         get: function () {
             return this._validationCursor.segmentInstance;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(LayoutCursor.prototype, "segmentPosition", {
         get: function () {
             return this._validationCursor.segmentPosition;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(LayoutCursor.prototype, "segmentDivision", {
         get: function () {
             return this._validationCursor.segmentDivision;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(LayoutCursor.prototype, "staffAttributes", {
         get: function () {
             return this._validationCursor.staffAttributes;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(LayoutCursor.prototype, "staffAccidentals", {
         get: function () {
             return this._validationCursor.staffAccidentals;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(LayoutCursor.prototype, "staffIdx", {
         get: function () {
             return this._validationCursor.staffIdx;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(LayoutCursor.prototype, "measureInstance", {
         get: function () {
             return this._validationCursor.measureInstance;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(LayoutCursor.prototype, "print", {
         get: function () {
             return this._validationCursor.print;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(LayoutCursor.prototype, "header", {
         get: function () {
             return this._validationCursor.header;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(LayoutCursor.prototype, "factory", {
         get: function () {
             return this._validationCursor.factory;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(LayoutCursor.prototype, "preview", {
         get: function () {
             return this._validationCursor.preview;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return LayoutCursor;

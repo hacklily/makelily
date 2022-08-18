@@ -25,4 +25,4 @@ export interface ITextMixin {
     getDX(words: CreditWords | Words, initX: number, lineNum: number): number;
     getDY(words: CreditWords | Words, initY: number, lineNum: number): number;
 }
-export declare let Prototype: ITextMixin;
+export declare const Prototype: ITextMixin;

@@ -87,8 +87,8 @@ export function refreshMeasure(spec) {
             };
         });
     });
-    var gStaffMeasure = keyBy(filter(spec.segments, function (seg) { return seg.ownerType === "staff"; }), function (seg) { return seg.part + "_" + seg.owner; });
-    var gVoiceMeasure = keyBy(filter(spec.segments, function (seg) { return seg.ownerType === "voice"; }), function (seg) { return seg.part + "_" + seg.owner; });
+    var gStaffMeasure = keyBy(filter(spec.segments, function (seg) { return seg.ownerType === "staff"; }), function (seg) { return "".concat(seg.part, "_").concat(seg.owner); });
+    var gVoiceMeasure = keyBy(filter(spec.segments, function (seg) { return seg.ownerType === "voice"; }), function (seg) { return "".concat(seg.part, "_").concat(seg.owner); });
     var gStaffLayouts = {};
     var gMaxXInMeasure = spec.measureX;
     var gMaxPaddingTopInMeasure = [];
@@ -102,26 +102,26 @@ export function refreshMeasure(spec) {
             if (op.p[0] === "divisions") {
                 return true;
             }
-            invariant(String(op.p[0]) === String(spec.measure.uuid), "Unexpected fixup for a measure " + op.p[0] + " " +
-                ("other than the current " + spec.measure.uuid));
+            invariant(String(op.p[0]) === String(spec.measure.uuid), "Unexpected fixup for a measure ".concat(op.p[0], " ") +
+                "other than the current ".concat(spec.measure.uuid));
             invariant(op.p[1] === "parts", "Expected p[1] to be parts");
-            invariant(op.p[2] === localSegment.part, "Expected part " + op.p[2] + " to be " + localSegment.part);
+            invariant(op.p[2] === localSegment.part, "Expected part ".concat(op.p[2], " to be ").concat(localSegment.part));
             if (localSegment.ownerType === "voice") {
                 if (typeof op.p[4] === "string") {
                     op.p[4] = parseInt(op.p[4], 10);
                 }
                 invariant(op.p[3] === "voices", "We are in a voice, so we can only patch the voice");
-                invariant(op.p[4] === localSegment.owner, "Expected voice owner " + localSegment.owner + ", got " + op.p[4]);
+                invariant(op.p[4] === localSegment.owner, "Expected voice owner ".concat(localSegment.owner, ", got ").concat(op.p[4]));
                 return ((op.p.length === 6 && op.p[5] <= vCursor.segmentPosition) ||
                     op.p[5] < vCursor.segmentPosition);
             }
             else if (localSegment.ownerType === "staff") {
                 invariant(op.p[3] === "staves", "We are in a staff, so we can only patch the staff");
-                invariant(op.p[4] === localSegment.owner, "Expected staff owner " + localSegment.owner + ", got " + op.p[4]);
+                invariant(op.p[4] === localSegment.owner, "Expected staff owner ".concat(localSegment.owner, ", got ").concat(op.p[4]));
                 return ((op.p.length === 6 && op.p[5] <= vCursor.segmentPosition) ||
                     op.p[5] < vCursor.segmentPosition);
             }
-            throw new Error("Invalid segment owner type " + localSegment.ownerType);
+            throw new Error("Invalid segment owner type ".concat(localSegment.ownerType));
         });
         spec.fixup(localSegment, operations, restartRequired);
     }
@@ -151,10 +151,10 @@ export function refreshMeasure(spec) {
             if (catchUp) {
                 lCursor.segmentX = xPerStaff[staffIdx];
             }
-            vCursor.segmentInstance = gStaffMeasure[part + "_" + staffIdx];
+            vCursor.segmentInstance = gStaffMeasure["".concat(part, "_").concat(staffIdx)];
             vCursor.segmentPosition = voiceStaves[staffIdx].length;
             var layout;
-            model.key = "SATIE" + vCursor.measureInstance.uuid + "_parts_" + vCursor.segmentInstance.part + "_staves_" + vCursor.segmentInstance.owner + "_" + vCursor.segmentPosition;
+            model.key = "SATIE".concat(vCursor.measureInstance.uuid, "_parts_").concat(vCursor.segmentInstance.part, "_staves_").concat(vCursor.segmentInstance.owner, "_").concat(vCursor.segmentPosition);
             model.staffIdx = vCursor.staffIdx;
             if (vCursor.factory.modelHasType(model, Type.Barline)) {
                 var totalDivisions = barDivisions(vCursor.staffAttributes);
@@ -232,9 +232,9 @@ export function refreshMeasure(spec) {
             // voice staff pairs.
             if (!voiceStaves[staffIdx]) {
                 voiceStaves[staffIdx] = [];
-                gStaffLayouts[part + "_" + staffIdx] =
-                    gStaffLayouts[part + "_" + staffIdx] || [];
-                gStaffLayouts[part + "_" + staffIdx].push(voiceStaves[staffIdx]);
+                gStaffLayouts["".concat(part, "_").concat(staffIdx)] =
+                    gStaffLayouts["".concat(part, "_").concat(staffIdx)] || [];
+                gStaffLayouts["".concat(part, "_").concat(staffIdx)].push(voiceStaves[staffIdx]);
                 xPerStaff[staffIdx] = 0;
             }
             vCursor.segmentPosition = i;
@@ -242,7 +242,7 @@ export function refreshMeasure(spec) {
             vCursor.staffAttributes = staffContexts[staffIdx].attributes;
             vCursor.staffIdx = staffIdx;
             while (staffContexts[staffIdx].division <= vCursor.segmentDivision) {
-                var nextStaffEl = gStaffMeasure[part + "_" + staffIdx][voiceStaves[staffIdx].length];
+                var nextStaffEl = gStaffMeasure["".concat(part, "_").concat(staffIdx)][voiceStaves[staffIdx].length];
                 // We can mostly ignore priorities here, since except for barlines,
                 // staff segments are more important than voice segments.
                 var nextIsBarline = spec.factory.modelHasType(nextStaffEl, Type.Barline);
@@ -257,7 +257,7 @@ export function refreshMeasure(spec) {
             }
             // All layout that can be controlled by the model is done here.
             var layout = void 0;
-            model.key = "SATIE" + vCursor.measureInstance.uuid + "_parts_" + vCursor.segmentInstance.part + "_voices_" + vCursor.segmentInstance.owner + "_" + vCursor.segmentPosition;
+            model.key = "SATIE".concat(vCursor.measureInstance.uuid, "_parts_").concat(vCursor.segmentInstance.part, "_voices_").concat(vCursor.segmentInstance.owner, "_").concat(vCursor.segmentPosition);
             model.staffIdx = vCursor.staffIdx;
             if (!vCursor.staffAccidentals) {
                 vCursor.staffAccidentals = getNativeKeyAccidentals(vCursor.staffAttributes.keySignature);

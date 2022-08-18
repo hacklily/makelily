@@ -34,7 +34,7 @@ var ProxyModel = /** @class */ (function () {
         set: function (divCount) {
             this._omTarget.divCount = divCount;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ProxyModel.prototype, "staffIdx", {
@@ -44,7 +44,7 @@ var ProxyModel = /** @class */ (function () {
         set: function (staffIdx) {
             this._omTarget.staffIdx = staffIdx;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ProxyModel.prototype, "target", {
@@ -53,14 +53,14 @@ var ProxyModel = /** @class */ (function () {
             this._omTarget = Object.create(this._target);
             this._omTarget.staffIdx = undefined;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     ProxyModel.prototype.toXML = function () {
-        return ("<!-- proxy for " + this._target
+        return ("<!-- proxy for ".concat(this._target
             .toXML()
-            .replace(/--/g, "\\-\\-") + " -->\n" +
-            ("<forward><duration>" + this.divCount + "</duration></forward>\n"));
+            .replace(/--/g, "\\-\\-"), " -->\n") +
+            "<forward><duration>".concat(this.divCount, "</duration></forward>\n"));
     };
     ProxyModel.prototype.inspect = function () {
         return this.toXML();

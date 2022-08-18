@@ -15,12 +15,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with Satie.  If not, see <http://www.gnu.org/licenses/>.
  */
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 var _a, _b;
 import { Count, NoteheadType, StemType, serializeNote, } from "musicxml-interfaces";
@@ -212,14 +214,14 @@ var ChordModelImpl = /** @class */ (function () {
         set: function (_n) {
             // Ignore.
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ChordModelImpl.prototype, "satieLedger", {
         get: function () {
             return ledgerLines(this, this._clef);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ChordModelImpl.prototype, "rest", {
@@ -227,14 +229,14 @@ var ChordModelImpl = /** @class */ (function () {
             // TODO: typing
             return some(this, function (note) { return note.rest; });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ChordModelImpl.prototype, "timeModification", {
         get: function () {
             return this[0].timeModification;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ChordModelImpl.prototype, "notes", {
@@ -242,7 +244,7 @@ var ChordModelImpl = /** @class */ (function () {
             var _this = this;
             return times(this.length, function (i) { return _this[i]; });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(ChordModelImpl.prototype, "count", {
@@ -253,7 +255,7 @@ var ChordModelImpl = /** @class */ (function () {
             }
             return noteType.duration;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     ChordModelImpl.prototype.push = function () {
@@ -275,7 +277,7 @@ var ChordModelImpl = /** @class */ (function () {
             replacements[_i - 2] = arguments[_i];
         }
         var notes = this.notes;
-        notes.splice.apply(notes, __spreadArrays([start, deleteCount], replacements));
+        notes.splice.apply(notes, __spreadArray([start, deleteCount], replacements, false));
         times(this.length, function (i) { return delete _this[i]; });
         forEach(notes, function (n, i) {
             invariant(n instanceof NoteImpl, "Notes must be NoteImpls in Chords");

@@ -51,7 +51,7 @@ export function toQueryString(obj) {
     for (var _i = 0, _a = Object.keys(obj); _i < _a.length; _i++) {
         var i = _a[_i];
         if (obj[i] !== undefined) {
-            parts.push(encodeURIComponent(i) + "=" + encodeURIComponent(obj[i]));
+            parts.push("".concat(encodeURIComponent(i), "=").concat(encodeURIComponent(obj[i])));
         }
     }
     return parts.join("&").replace(/%2F/g, "/"); // because we can, and it's less ugly.
@@ -71,7 +71,7 @@ function getQueryProps() {
     Object.keys(queryObj).forEach(function (key) {
         var queryPropIdx = QUERY_PROP_KEYS.indexOf(key);
         if (queryPropIdx === -1) {
-            console.warn("Warning: unknown query property " + key + ". " +
+            console.warn("Warning: unknown query property ".concat(key, ". ") +
                 "Please add it to QUERY_PROP_KEYS in App.tsx.");
             return;
         }
@@ -96,7 +96,7 @@ function setQuery(queryUpdates, replaceState) {
     });
     var base = location.href.split("?")[0];
     var queryString = toQueryString(query);
-    var newUrl = queryString.length ? base + "?" + queryString : base;
+    var newUrl = queryString.length ? "".concat(base, "?").concat(queryString) : base;
     if (replaceState) {
         history.replaceState(null, "", newUrl);
     }

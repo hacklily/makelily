@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with Satie.  If not, see <http://www.gnu.org/licenses/>.
  */
-export var VERSION = process.env.SATIE_VERSION || "";
+export var VERSION = (typeof process !== "undefined" && process.env.SATIE_VERSION) || "";
 import SongImpl from "./engine_songImpl";
 /* The web application API */
 export { default as Application } from "./engine_application";

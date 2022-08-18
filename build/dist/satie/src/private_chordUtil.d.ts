@@ -71,10 +71,10 @@ export declare function startingLine(chord: IChord, direction: number, clef: Cle
 export declare function heightDeterminingLine(chord: IChord, direction: number, clef: Clef): number;
 export declare function linesForClef(chord: IChord, clef: Clef): Array<number>;
 export declare function lineForClef(note: Note, clef: Clef): number;
-export declare let offsetToPitch: {
+export declare const offsetToPitch: {
     [key: string]: string;
 };
-export declare let pitchOffsets: {
+export declare const pitchOffsets: {
     [key: string]: number;
 };
 export declare function pitchForClef(relativeY: number, clef: Clef): Pitch;
@@ -86,33 +86,33 @@ export declare function lineForClef_(step: string, octave: string | number, clef
 export declare function onLedger(note: Note, clef: Clef): boolean;
 export declare function ledgerLines(chord: IChord, clef: Clef): number[];
 export declare function rest(chord: IChord): Rest;
-export declare let defaultClefLines: {
+export declare const defaultClefLines: {
     [key: string]: number;
 };
-export declare let clefOffsets: {
+export declare const clefOffsets: {
     [key: string]: number;
 };
 export declare function getClefOffset(clef: Clef): number;
 export declare function barDivisionsDI(time: Time, divisions: number): number;
 export declare function barDivisions({ time, divisions }: IAttributesSnapshot): number;
-export declare let IDEAL_STEM_HEIGHT: number;
-export declare let MIN_STEM_HEIGHT: number;
-export declare let chromaticScale: {
+export declare const IDEAL_STEM_HEIGHT: number;
+export declare const MIN_STEM_HEIGHT: number;
+export declare const chromaticScale: {
     [key: string]: number;
 };
-export declare let countToHasStem: {
+export declare const countToHasStem: {
     [key: string]: boolean;
 };
-export declare let countToIsBeamable: {
+export declare const countToIsBeamable: {
     [key: string]: boolean;
 };
-export declare let countToFlag: {
+export declare const countToFlag: {
     [key: string]: string;
 };
-export declare let accidentalGlyphs: {
+export declare const accidentalGlyphs: {
     [key: number]: string;
 };
-export declare let InvalidAccidental: number;
+export declare const InvalidAccidental = -999;
 export declare function getNoteheadGlyph(notehead: Notehead, stdGlyph: string): string;
 export declare function notationObj(n: Note): Notations;
 export declare function articulationObj(n: Note): Articulations;

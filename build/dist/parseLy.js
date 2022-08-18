@@ -59,10 +59,7 @@ export function parseClef(clefLy) {
         clefOctaveChange = "-2";
     }
     return buildClef(function (clef) {
-        return clef
-            .clefOctaveChange(clefOctaveChange)
-            .line(line)
-            .sign(sign);
+        return clef.clefOctaveChange(clefOctaveChange).line(line).sign(sign);
     });
 }
 var roots = [
@@ -86,10 +83,7 @@ var roots = [
     "ais",
 ];
 export function parseKeySig(keyLy) {
-    var root = keyLy
-        .toLowerCase()
-        .trim()
-        .split(" ")[0];
+    var root = keyLy.toLowerCase().trim().split(" ")[0];
     var rootIdx = roots.indexOf(root);
     var fifths = 0;
     var mode = "major";

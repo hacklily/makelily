@@ -21,10 +21,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -120,7 +122,7 @@ var ToolSetClef = /** @class */ (function (_super) {
         var clefViews = stdClefs.map(function (clef, i) {
             var clefSpec = __assign(__assign({ defaultX: 0, defaultY: 0, relativeY: 0 }, clef), { clefOctaveChange: clef.sign !== "TAB" &&
                     clef.sign !== "percussion" &&
-                    "" + _this.state.octave });
+                    "".concat(_this.state.octave) });
             var selected = i === _this.state.selectedClef;
             return (React.createElement("span", { className: css(tabStyles.selectableOption, selected && tabStyles.selectableSelected), role: "button", onClick: function () { return _this.setState({ selectedClef: i }); }, key: i },
                 React.createElement("svg", { className: css(tabStyles.resetFont), viewBox: clefSpec.clefViewbox },
@@ -167,19 +169,19 @@ var ToolSetClef = /** @class */ (function (_super) {
         if (clef === "moderntab" ||
             clef === "percussion" ||
             this.state.octave === 0) {
-            return "\\clef " + clef;
+            return "\\clef ".concat(clef);
         }
         var openOctave = this.state.octaveOptional ? "(" : "";
         var closeOctave = this.state.octaveOptional ? ")" : "";
         switch (this.state.octave) {
             case -2:
-                return "\\clef \"" + clef + "_" + openOctave + "15" + closeOctave + "\"";
+                return "\\clef \"".concat(clef, "_").concat(openOctave, "15").concat(closeOctave, "\"");
             case -1:
-                return "\\clef \"" + clef + "_" + openOctave + "8" + closeOctave + "\"";
+                return "\\clef \"".concat(clef, "_").concat(openOctave, "8").concat(closeOctave, "\"");
             case 1:
-                return "\\clef \"" + clef + "^" + openOctave + "8" + closeOctave + "\"";
+                return "\\clef \"".concat(clef, "^").concat(openOctave, "8").concat(closeOctave, "\"");
             case 2:
-                return "\\clef \"" + clef + "^" + openOctave + "15" + closeOctave + "\"";
+                return "\\clef \"".concat(clef, "^").concat(openOctave, "15").concat(closeOctave, "\"");
             default:
                 return "Error: unknown octave";
         }

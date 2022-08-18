@@ -19,10 +19,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -57,9 +59,7 @@ var Rest = /** @class */ (function (_super) {
         var dotOffset = bboxes[notehead][0] * 10 + 6;
         return (React.createElement("g", null,
             React.createElement(Glyph, { fill: spec.color, glyphName: notehead, key: "R", x: x, y: y }),
-            rest.measure && this.props.multipleRest && (React.createElement("text", { className: "mmn_", fontWeight: "bold", fontSize: 48, textAnchor: "middle", x: x + (bboxes[notehead][0] * 10) / 2, y: y - 30 },
-                this.props.multipleRest.count,
-                " /*TODO: useSymbols*/")),
+            rest.measure && this.props.multipleRest && (React.createElement("text", { className: "mmn_", fontWeight: "bold", fontSize: 48, textAnchor: "middle", x: x + (bboxes[notehead][0] * 10) / 2, y: y - 30 }, this.props.multipleRest.count /*TODO: useSymbols*/)),
             spec.dots && spec.printDot !== false
                 ? map(spec.dots, function (dot, idx) { return (React.createElement(Dot, { fill: dot.color, key: idx + "d", radius: 2.4, x: x + dotOffset + 6 * idx, y: y - (dot.defaultY + (dot.relativeY || 0)) })); })
                 : null));

@@ -226,7 +226,7 @@ var AttributesModel = /** @class */ (function () {
             invariant(isFinite(count), "Count must be finite.");
             this._divCount = count;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     /*---- Implementation -----------------------------------------------------------------------*/
@@ -265,7 +265,7 @@ var AttributesModel = /** @class */ (function () {
         j.staffDetails = j.staffDetails.filter(function (a) { return !!a; });
         j.clefs = j.clefs.filter(function (a) { return !!a; });
         j.keySignatures = j.keySignatures.filter(function (a) { return !!a; });
-        return serializeAttributes(j) + "\n<forward><duration>" + this.divCount + "</duration></forward>\n";
+        return "".concat(serializeAttributes(j), "\n<forward><duration>").concat(this.divCount, "</duration></forward>\n");
     };
     AttributesModel.prototype.toJSON = function () {
         var _a = this, _class = _a._class, divisions = _a.divisions, partSymbol = _a.partSymbol, measureStyles = _a.measureStyles, staffDetails = _a.staffDetails, transposes = _a.transposes, staves = _a.staves, instruments = _a.instruments, directives = _a.directives, clefs = _a.clefs, times = _a.times, keySignatures = _a.keySignatures, footnote = _a.footnote, level = _a.level;
@@ -320,10 +320,7 @@ var AttributesModel = /** @class */ (function () {
                     return attributes
                         .clefsAt(0, null) // XXX: HACK to fix splice
                         .clefsAt(staffIdx, function (clef) {
-                        return clef
-                            .number(staffIdx)
-                            .sign("G")
-                            .line(2);
+                        return clef.number(staffIdx).sign("G").line(2);
                     });
                 });
             });
@@ -371,10 +368,7 @@ var AttributesModel = /** @class */ (function () {
             cursor.patch(function (staff) {
                 return staff.attributes(function (attributes) {
                     return attributes.timesAt(0, function (time) {
-                        return time
-                            .symbol(TimeSymbolType.Common)
-                            .beats(["4"])
-                            .beatTypes([4]);
+                        return time.symbol(TimeSymbolType.Common).beats(["4"]).beatTypes([4]);
                     });
                 });
             });
@@ -399,11 +393,7 @@ var AttributesModel = /** @class */ (function () {
                 cursor.patch(function (staff) {
                     return staff.attributes(function (attributes) {
                         return attributes.keySignaturesAt(0, function (key) {
-                            return key
-                                .fifths(0)
-                                .keySteps(null)
-                                .keyAccidentals(null)
-                                .keyAlters(null);
+                            return key.fifths(0).keySteps(null).keyAccidentals(null).keyAlters(null);
                         });
                     });
                 });
@@ -430,7 +420,9 @@ var AttributesModel = /** @class */ (function () {
                 if (!isEqual(ks.keyOctaves, keyOctaves_1)) {
                     cursor.patch(function (staff) {
                         return staff.attributes(function (attributes) {
-                            return attributes.keySignaturesAt(0, function (key) { return key.keyOctaves(keyOctaves_1); });
+                            return attributes.keySignaturesAt(0, function (key) {
+                                return key.keyOctaves(keyOctaves_1);
+                            });
                         });
                     });
                 }

@@ -50,7 +50,7 @@ var FiguredBassModel = /** @class */ (function () {
                     break;
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     FiguredBassModel.prototype.refresh = function (_cursor) {
@@ -61,7 +61,7 @@ var FiguredBassModel = /** @class */ (function () {
         return new FiguredBassModel.Layout(this, cursor);
     };
     FiguredBassModel.prototype.toXML = function () {
-        return serializeFiguredBass(this) + "\n<forward><duration>" + this.divCount + "</duration></forward>\n";
+        return "".concat(serializeFiguredBass(this), "\n<forward><duration>").concat(this.divCount, "</duration></forward>\n");
     };
     FiguredBassModel.prototype.inspect = function () {
         return this.toXML();

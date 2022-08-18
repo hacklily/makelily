@@ -21,10 +21,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -60,13 +62,13 @@ function getEnglish(fifths, mode) {
     if (key.toLowerCase() === key) {
         if (fifths < 0) {
             // It's flat.
-            return key.toUpperCase() + "\u266D " + englishMode;
+            return "".concat(key.toUpperCase(), "\u266D ").concat(englishMode);
         }
         else {
-            return key.toUpperCase() + "\u266F " + englishMode;
+            return "".concat(key.toUpperCase(), "\u266F ").concat(englishMode);
         }
     }
-    return key.toUpperCase() + " " + englishMode;
+    return "".concat(key.toUpperCase(), " ").concat(englishMode);
 }
 function getLy(fifths, mode) {
     var key = majors[fifths + 7 + (mode === "minor" ? 3 : 0)];
@@ -76,13 +78,13 @@ function getLy(fifths, mode) {
     if (key.toLowerCase() === key) {
         if (fifths < 0) {
             // It's flat.
-            return "\\key " + key.toLowerCase() + "es \\" + mode;
+            return "\\key ".concat(key.toLowerCase(), "es \\").concat(mode);
         }
         else {
-            return "\\key " + key.toLowerCase() + "is \\" + mode;
+            return "\\key ".concat(key.toLowerCase(), "is \\").concat(mode);
         }
     }
-    return "\\key " + key.toLowerCase() + " \\" + mode;
+    return "\\key ".concat(key.toLowerCase(), " \\").concat(mode);
 }
 var stdKeys = {
     major: Array(15)

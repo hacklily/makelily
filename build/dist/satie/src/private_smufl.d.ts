@@ -16,7 +16,7 @@
  * along with Satie.  If not, see <http://www.gnu.org/licenses/>.
  */
 export { default as bravura } from "./private_smufl_bravura";
-export declare let bboxes: {
+export declare const bboxes: {
     [key: string]: any[];
 };
 export declare function getGlyphCode(name: string): string;
@@ -24,7 +24,7 @@ export declare function getGlyphCode(name: string): string;
  * Calculates where a notation should begin.
  */
 export declare function getFontOffset(notehead: string, direction: number): any;
-export declare let distances: {
+export declare const distances: {
     beam: number;
     hyphen: number;
 };

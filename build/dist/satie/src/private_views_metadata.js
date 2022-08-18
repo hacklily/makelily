@@ -62,31 +62,34 @@ export function Targetable() {
         }
         // ---- //
         var originalComponentWillMount = component.prototype.UNSAFE_componentWillMount;
-        component.prototype.UNSAFE_componentWillMount = function metaComponentWillMountWrapper() {
-            var self = this;
-            updateMeta(self, self.props);
-            if (originalComponentWillMount) {
-                originalComponentWillMount.call(self);
-            }
-        };
+        component.prototype.UNSAFE_componentWillMount =
+            function metaComponentWillMountWrapper() {
+                var self = this;
+                updateMeta(self, self.props);
+                if (originalComponentWillMount) {
+                    originalComponentWillMount.call(self);
+                }
+            };
         // ---- //
         var originalComponentWillUnmount = component.prototype.componentWillUnmount;
-        component.prototype.componentWillUnmount = function metaComponentWillUnmountWrapper() {
-            var self = this;
-            clearMeta(self);
-            if (originalComponentWillUnmount) {
-                originalComponentWillUnmount.call(self);
-            }
-        };
+        component.prototype.componentWillUnmount =
+            function metaComponentWillUnmountWrapper() {
+                var self = this;
+                clearMeta(self);
+                if (originalComponentWillUnmount) {
+                    originalComponentWillUnmount.call(self);
+                }
+            };
         // ---- //
         var originalComponentWillReceiveProps = component.prototype.UNSAFE_componentWillReceiveProps;
-        component.prototype.UNSAFE_componentWillReceiveProps = function metaComponentWillReceiveProps(nextProps) {
-            var self = this;
-            updateMeta(self, nextProps);
-            if (originalComponentWillReceiveProps) {
-                originalComponentWillReceiveProps.call(self);
-            }
-        };
+        component.prototype.UNSAFE_componentWillReceiveProps =
+            function metaComponentWillReceiveProps(nextProps) {
+                var self = this;
+                updateMeta(self, nextProps);
+                if (originalComponentWillReceiveProps) {
+                    originalComponentWillReceiveProps.call(self);
+                }
+            };
     };
 }
 var _sorted = [];
@@ -101,7 +104,7 @@ function clear(record) {
     var weight = weightForRecord(record);
     var firstPossibleIdx = sortedIndex(_weights, weight);
     var idx = indexOf(_sorted, record, firstPossibleIdx);
-    invariant(idx >= 0, record.key + " not currently in array.");
+    invariant(idx >= 0, "".concat(record.key, " not currently in array."));
     _sorted.splice(idx, 1);
     _weights.splice(idx, 1);
 }

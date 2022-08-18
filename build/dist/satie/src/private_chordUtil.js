@@ -540,8 +540,8 @@ export function getNoteheadGlyph(notehead, stdGlyph) {
             }
         }
     }
-    console.warn("The custom notehead with ID " + type + " cannot replace " +
-        (notehead + ", probably because it's not implemented."));
+    console.warn("The custom notehead with ID ".concat(type, " cannot replace ") +
+        "".concat(notehead, ", probably because it's not implemented."));
     return stdGlyph;
 }
 export function notationObj(n) {
@@ -581,7 +581,7 @@ export function divisions(chord, attributes, allowFractional) {
         };
     var attributeDivisions = attributes.divisions;
     invariant(!!attributesTime, "A time signature must be specified.");
-    if (chordCount === -1 || chordCount <= 1) {
+    if (chordCount >= Count.Breve || chordCount === Count.Whole) {
         // TODO: What if beatType isn't consistent?
         var tsBeats = reduce(attributesTime.beats, function (memo, durr) {
             return memo + reduce(durr.split("+"), function (m, l) { return m + parseInt(l, 10); }, 0);

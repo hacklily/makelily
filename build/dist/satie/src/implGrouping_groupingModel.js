@@ -37,7 +37,7 @@ var GroupingModel = /** @class */ (function () {
         return new GroupingModel.Layout(this, cursor);
     };
     GroupingModel.prototype.toXML = function () {
-        return serializeGrouping(this) + "\n<forward><duration>" + this.divCount + "</duration></forward>\n";
+        return "".concat(serializeGrouping(this), "\n<forward><duration>").concat(this.divCount, "</duration></forward>\n");
     };
     GroupingModel.prototype.inspect = function () {
         return this.toXML();

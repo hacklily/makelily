@@ -19,10 +19,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -94,13 +96,13 @@ var TimeSignatureView = /** @class */ (function (_super) {
         return (React.createElement("g", null, map(ts.beats, function (beatsOuter, idx) {
             var array = [
                 map(beatsOuter, function (beats, jdx) { return [
-                    React.createElement(TimeSignatureNumber, { key: "num_" + idx + "_" + jdx, stroke: spec.color, x: spec.defaultX +
+                    React.createElement(TimeSignatureNumber, { key: "num_".concat(idx, "_").concat(jdx), stroke: spec.color, x: spec.defaultX +
                             (spec.relativeX || 0) +
                             numOffsets[idx] +
                             pos +
                             jdx * NUMBER_SPACING, y: (_this.context.originY || 0) -
                             (spec.defaultY + (spec.relativeY || 0) + 10) }, String(beats)),
-                    jdx + 1 !== beatsOuter.length && (React.createElement(Glyph, { fill: "black", glyphName: "timeSigPlusSmall", key: "num_plus_numerator_" + idx + "_" + jdx, x: spec.defaultX +
+                    jdx + 1 !== beatsOuter.length && (React.createElement(Glyph, { fill: "black", glyphName: "timeSigPlusSmall", key: "num_plus_numerator_".concat(idx, "_").concat(jdx), x: spec.defaultX +
                             (spec.relativeX || 0) +
                             numOffsets[idx] +
                             pos +
@@ -112,7 +114,7 @@ var TimeSignatureView = /** @class */ (function (_super) {
                 ]; }),
                 React.createElement(TimeSignatureNumber, { key: "den", stroke: spec.color, x: spec.defaultX + (spec.relativeX || 0) + denOffsets[idx] + pos, y: (_this.context.originY || 0) -
                         (spec.defaultY + (spec.relativeY || 0) - 10) }, String(ts.beatType[idx])),
-                idx + 1 !== ts.beats.length && (React.createElement(Glyph, { fill: "black", glyphName: "timeSigPlus", key: "num_plus_" + idx, x: spec.defaultX +
+                idx + 1 !== ts.beats.length && (React.createElement(Glyph, { fill: "black", glyphName: "timeSigPlus", key: "num_plus_".concat(idx), x: spec.defaultX +
                         (spec.relativeX || 0) +
                         numOffsets[idx] +
                         pos +

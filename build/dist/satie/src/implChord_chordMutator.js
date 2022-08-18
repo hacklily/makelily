@@ -48,7 +48,7 @@ export default function chordMutator(chord, op) {
         }
         else {
             var note = chord[parseInt(String(op.p[1]), 10)];
-            invariant(Boolean(note), "Invalid operation path for chord. No such note " + op.p[1]);
+            invariant(Boolean(note), "Invalid operation path for chord. No such note ".concat(op.p[1]));
             var localOp = cloneDeep(op);
             localOp.p = path.slice(2);
             noteMutator(note, localOp);
@@ -70,7 +70,7 @@ export default function chordMutator(chord, op) {
         chord.divCount = op.oi;
     }
     else {
-        throw new Error("Invalid/unimplemented operation path for chord: " + op.p[0]);
+        throw new Error("Invalid/unimplemented operation path for chord: ".concat(op.p[0]));
     }
 }
 //# sourceMappingURL=implChord_chordMutator.js.map

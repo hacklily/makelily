@@ -22,7 +22,7 @@ function expectEqualish(a, b) {
     a = cloneObject(a);
     b = cloneObject(b);
     if (!isEqual(a, b)) {
-        console.warn("Invalid operation since " + JSON.stringify(a, null, 2) + " != " + JSON.stringify(b, null, 2) + ". Doing it anyway.");
+        console.warn("Invalid operation since ".concat(JSON.stringify(a, null, 2), " != ").concat(JSON.stringify(b, null, 2), ". Doing it anyway."));
     }
 }
 export function parentExists(obj, p) {
@@ -37,7 +37,7 @@ export function parentExists(obj, p) {
 export function findParent(obj, p) {
     for (var i = 0; i < p.length - 1; ++i) {
         obj = obj[p[i]];
-        invariant(obj, "Invalid path: " + p.join(", "));
+        invariant(obj, "Invalid path: ".concat(p.join(", ")));
     }
     return obj;
 }

@@ -43,7 +43,7 @@ var SpacerModel = /** @class */ (function () {
         return new SpacerModel.Layout(this, cursor);
     };
     SpacerModel.prototype.toXML = function () {
-        return "<!-- spacer -->\n<forward><duration>" + this.divCount + "</duration></forward>\n";
+        return "<!-- spacer -->\n<forward><duration>".concat(this.divCount, "</duration></forward>\n");
     };
     SpacerModel.prototype.inspect = function () {
         return this.toXML();

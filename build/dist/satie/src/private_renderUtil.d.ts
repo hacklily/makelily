@@ -15,12 +15,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with Satie.  If not, see <http://www.gnu.org/licenses/>.
  */
-export declare let ptPerMM: number;
-export declare let mmPerIn: number;
-export declare let V_PADDING: number;
-export declare let staveSeperation: number;
-export declare let rastalToHeight: number[];
-export declare let pageSizes: {
+export declare const ptPerMM = 2.842;
+export declare const mmPerIn = 25.4;
+export declare const V_PADDING = 20;
+export declare const staveSeperation = 3.24;
+export declare const rastalToHeight: number[];
+export declare const pageSizes: {
     name: string;
     lilypondName: string;
     width: number;
@@ -34,15 +34,15 @@ export declare function defaultPageSize(): {
     height: number;
     unit: string;
 };
-export declare let defaultIndent: number;
-export declare let defaultMargins: {
+export declare const defaultIndent = 15;
+export declare const defaultMargins: {
     top: number;
     right: number;
     bottom: number;
     left: number;
 };
-export declare let defaultStaveHeight: number;
-export declare let lilypondSizes: {
+export declare const defaultStaveHeight: number;
+export declare const lilypondSizes: {
     choral: {
         width: number;
         height: number;

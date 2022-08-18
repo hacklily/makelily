@@ -18,12 +18,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 import invariant from "invariant";
 import { forEach, some } from "lodash";
@@ -31,9 +33,9 @@ import { Type } from "./document";
 import { cloneObject } from "./private_util";
 var Factory = /** @class */ (function () {
     function Factory(models, pre, post) {
-        var _this = this;
         if (pre === void 0) { pre = []; }
         if (post === void 0) { post = []; }
+        var _this = this;
         this._constructors = {};
         forEach(models, function (model) {
             model(_this._constructors);
@@ -73,7 +75,7 @@ var Factory = /** @class */ (function () {
             --idx;
         }
         for (var i = idx; i < models.length; ++i) {
-            if (this.modelHasType.apply(this, __spreadArrays([models[i]], types))) {
+            if (this.modelHasType.apply(this, __spreadArray([models[i]], types, false))) {
                 filtered.push(models[i]);
             }
             else if (models[i].divCount) {

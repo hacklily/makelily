@@ -87,7 +87,8 @@ export function layoutLine(options, bounds, memo) {
                 memo.y -= 100;
             }
             var paddingTop = maxBy(layouts, function (mre) { return mre.paddingTop[staffIdx] || 0; }).paddingTop[staffIdx] || 0;
-            var paddingBottom = maxBy(layouts, function (mre) { return mre.paddingBottom[staffIdx] || 0; }).paddingBottom[staffIdx] || 0;
+            var paddingBottom = maxBy(layouts, function (mre) { return mre.paddingBottom[staffIdx] || 0; })
+                .paddingBottom[staffIdx] || 0;
             var top = memo.y - paddingTop;
             memo.y = top - paddingBottom;
             return top;

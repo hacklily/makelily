@@ -15,12 +15,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with Satie.  If not, see <http://www.gnu.org/licenses/>.
  */
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -58,7 +60,7 @@ var Document = /** @class */ (function () {
         for (var _i = 1; _i < arguments.length; _i++) {
             modelTypes[_i - 1] = arguments[_i];
         }
-        return (_a = this._factory).modelHasType.apply(_a, __spreadArrays([model], modelTypes));
+        return (_a = this._factory).modelHasType.apply(_a, __spreadArray([model], modelTypes, false));
     };
     Document.prototype.search = function (models, idx) {
         var _a;
@@ -66,7 +68,7 @@ var Document = /** @class */ (function () {
         for (var _i = 2; _i < arguments.length; _i++) {
             types[_i - 2] = arguments[_i];
         }
-        return (_a = this._factory).search.apply(_a, __spreadArrays([models, idx], types));
+        return (_a = this._factory).search.apply(_a, __spreadArray([models, idx], types, false));
     };
     Document.prototype.getPrint = function (startMeasure) {
         var _this = this;
@@ -85,13 +87,13 @@ var Document = /** @class */ (function () {
     };
     Document.prototype.renderToStaticMarkup = function (startMeasure) {
         var core = renderToStaticMarkup(this.__getPage(startMeasure, false, "svg-export", null, false));
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>" + core
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>".concat(core
             .replace("<svg", '<svg xmlns="http://www.w3.org/2000/svg"')
             .replace(/class="tn_"/g, "font-family='Alegreya'")
             .replace(/class="mmn_"/g, "font-family='Alegreya' " + "font-style='italic' stroke='#7a7a7a'")
             .replace(/class="bn_"/g, "font-family='Alegreya' " +
             "font-style='italic' text-anchor='end' stroke='#7a7a7a'")
-            .replace(/<noscript><\/noscript>/g, "");
+            .replace(/<noscript><\/noscript>/g, ""));
     };
     /**
      * INTERNAL. Renders a page. Instead, use renderToStaticMarkup() or the

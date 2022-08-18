@@ -18,7 +18,7 @@
 /// <reference path="./opentypedist.d.ts" />
 import { parse as parseFont } from "opentype.js/dist/opentype.js";
 import { memoize, forEach } from "lodash";
-var IS_BROWSER = "browser" in process;
+var IS_BROWSER = typeof process === "undefined" || "browser" in process;
 var NO_PATH_DATA = {};
 /*---- PRIVATE ------------------------------------------------------------------------*/
 var State = {
@@ -36,7 +36,7 @@ var State = {
 function getFullName(name, style) {
     name = name.toLowerCase();
     style = style && style.toLowerCase();
-    return "" + name + (style ? "_" + style : "");
+    return "".concat(name).concat(style ? "_" + style : "");
 }
 function loadFont(name, url, style, full) {
     ++State.remaining;
@@ -44,9 +44,9 @@ function loadFont(name, url, style, full) {
     url = getNativeURL(url);
     if (!full && IS_BROWSER) {
         var styleSheet = document.createElement("style");
-        styleSheet.appendChild(document.createTextNode("@font-face{\n            font-family: " + name + ";\n            src: url(" + url + ") format('truetype');\n            " + (style && style.toLowerCase() === "bold"
+        styleSheet.appendChild(document.createTextNode("@font-face{\n            font-family: ".concat(name, ";\n            src: url(").concat(url, ") format('truetype');\n            ").concat(style && style.toLowerCase() === "bold"
             ? "font-weight: bold;"
-            : "") + "\n        }"));
+            : "", "\n        }")));
         document.head.appendChild(styleSheet);
         State.fonts[fullName] = State.fonts[fullName] || NO_PATH_DATA;
         goOn();
@@ -60,9 +60,9 @@ function loadFont(name, url, style, full) {
             State.fonts[fullName] = font;
             if (IS_BROWSER) {
                 var styleSheet = document.styleSheets[0];
-                var fontFaceStyle = "@font-face{\n                    font-family: " + name + ";\n                    src: url(data:font/truetype;charset=utf-8;base64," + toBase64(buffer) + ") format('truetype');\n                    " + (style && style.toLowerCase() === "bold"
+                var fontFaceStyle = "@font-face{\n                    font-family: ".concat(name, ";\n                    src: url(data:font/truetype;charset=utf-8;base64,").concat(toBase64(buffer), ") format('truetype');\n                    ").concat(style && style.toLowerCase() === "bold"
                     ? "font-weight: bold;"
-                    : "") + "\n                }";
+                    : "", "\n                }");
                 styleSheet.insertRule(fontFaceStyle, 0);
             }
             goOn();
@@ -100,7 +100,7 @@ function loadFromUrl(url, callback) {
     request.responseType = "arraybuffer";
     request.onload = function () {
         if (request.status !== 200) {
-            return callback(new Error("Font could not be loaded: " + request.statusText));
+            return callback(new Error("Font could not be loaded: ".concat(request.statusText)));
         }
         return callback(null, request.response);
     };
@@ -112,7 +112,8 @@ function getNativeURL(url) {
 var CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 function toBase64(buffer) {
     var bytes = new Uint8Array(buffer);
-    var len = bytes.length, base64 = "";
+    var len = bytes.length;
+    var base64 = "";
     for (var i = 0; i < len; i += 3) {
         /* tslint:disable */
         base64 += CHARS[bytes[i] >> 2];
@@ -157,7 +158,7 @@ export function getTextBB(name, text, fontSize, style) {
     var fullName = getFullName(name, style);
     var font = State.fonts[fullName];
     if (State.canvasContext && font === NO_PATH_DATA) {
-        State.canvasContext.font = (style || "") + " " + fontSize + "px " + name;
+        State.canvasContext.font = "".concat(style || "", " ").concat(fontSize, "px ").concat(name);
         // We want to be consistent between web browsers. Many browsers only support measuring
         // width, so even if we are in Chrome and have better information, we ignore that.
         // Of course that this information is wrong, but it's good enough to place text.
@@ -170,7 +171,7 @@ export function getTextBB(name, text, fontSize, style) {
     }
     if (font === NO_PATH_DATA) {
         // TODO: get width by canvas if this is the browser
-        console.warn(fullName + " was loaded without path data");
+        console.warn("".concat(fullName, " was loaded without path data"));
         return {
             bottom: 1,
             left: 0,
@@ -179,7 +180,7 @@ export function getTextBB(name, text, fontSize, style) {
         };
     }
     if (!font) {
-        console.warn(fullName + " is not loaded");
+        console.warn("".concat(fullName, " is not loaded"));
         return {
             bottom: 1,
             left: 0,
@@ -209,11 +210,11 @@ var _toPathData = memoize(function (name, text, x, y, fontSize, style) {
     var fullName = getFullName(name, style);
     var font = State.fonts[fullName];
     if (!font) {
-        console.warn(fullName + " is not loaded");
+        console.warn("".concat(fullName, " is not loaded"));
         return "";
     }
     if (font === NO_PATH_DATA) {
-        console.warn(fullName + " was loaded without path data");
+        console.warn("".concat(fullName, " was loaded without path data"));
         return "";
     }
     return font.getPath(text, x, y, fontSize, { kerning: true }).toPathData(3);

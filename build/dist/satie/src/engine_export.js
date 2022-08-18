@@ -23,25 +23,25 @@ export function exportXML(score) {
     var recordedSongMeta = false;
     forEach(score.measures, function (measure) {
         // TODO: dehack
-        out += "<measure number=\"" + measure.number + "\">\n";
+        out += "<measure number=\"".concat(measure.number, "\">\n");
         forEach(measure.parts, function (part, id) {
-            out += "  <part id=\"" + id + "\">\n";
+            out += "  <part id=\"".concat(id, "\">\n");
             out += "    <!-- measure metadata (Satie) -->\n";
             if (!recordedSongMeta) {
                 out +=
                     "    <direction placement=\"below\"><direction-type><words default-y=\"-70\" relative-x=\"-5000\">" +
-                        ("SATIE_SONG_META = " + JSON.stringify({}) + ";") +
+                        "SATIE_SONG_META = ".concat(JSON.stringify({}), ";") +
                         "</words></direction-type></direction>\n";
                 recordedSongMeta = true;
             }
             out +=
                 "    <direction placement=\"below\"><direction-type><words default-y=\"-70\" relative-x=\"-5000\">" +
-                    ("SATIE_MEASURE_META = " + JSON.stringify({ uuid: measure.uuid }) + ";") +
+                    "SATIE_MEASURE_META = ".concat(JSON.stringify({ uuid: measure.uuid }), ";") +
                     "</words></direction-type></direction>\n";
             out += "    <!-- end of measure metadata (Satie) -->\n";
             forEach(part.staves, function (staff, staffIdx) {
                 if (staff) {
-                    out += "    <!-- staff " + staffIdx + " -->\n";
+                    out += "    <!-- staff ".concat(staffIdx, " -->\n");
                     out +=
                         map(staff, function (model) { return model.toXML(); })
                             .join("\n")
@@ -49,13 +49,13 @@ export function exportXML(score) {
                             .map(function (t) { return "    " + t; })
                             .join("\n") + "\n";
                     var divCount = staff.reduce(function (sum, item) { return sum + item.divCount; }, 0);
-                    out += "    <backup><duration>" + divCount + "</duration></backup>\n";
-                    out += "    <!-- end of staff " + staffIdx + " -->\n";
+                    out += "    <backup><duration>".concat(divCount, "</duration></backup>\n");
+                    out += "    <!-- end of staff ".concat(staffIdx, " -->\n");
                 }
             });
             forEach(part.voices, function (voice, voiceIdx) {
                 if (voice) {
-                    out += "    <!-- voice " + voiceIdx + " -->\n";
+                    out += "    <!-- voice ".concat(voiceIdx, " -->\n");
                     out +=
                         map(voice, function (model) { return model.toXML(); })
                             .join("\n")
@@ -63,8 +63,8 @@ export function exportXML(score) {
                             .map(function (t) { return "    " + t; })
                             .join("\n") + "\n";
                     var divCount = voice.reduce(function (sum, item) { return sum + item.divCount; }, 0);
-                    out += "    <backup><duration>" + divCount + "</duration></backup>\n";
-                    out += "    <!-- end of voice " + voiceIdx + " -->\n";
+                    out += "    <backup><duration>".concat(divCount, "</duration></backup>\n");
+                    out += "    <!-- end of voice ".concat(voiceIdx, " -->\n");
                 }
             });
             out += "  </part>\n";

@@ -124,7 +124,7 @@ var PrintModel = /** @class */ (function () {
         return print;
     };
     PrintModel.prototype.toXML = function () {
-        return serializePrint(this) + "\n<forward><duration>" + this.divCount + "</duration></forward>\n";
+        return "".concat(serializePrint(this), "\n<forward><duration>").concat(this.divCount, "</duration></forward>\n");
     };
     PrintModel.prototype.toJSON = function () {
         var _a = this, _class = _a._class, measureNumbering = _a.measureNumbering, partNameDisplay = _a.partNameDisplay, newSystem = _a.newSystem, newPage = _a.newPage, blankPage = _a.blankPage, measureLayout = _a.measureLayout, partAbbreviationDisplay = _a.partAbbreviationDisplay, pageLayout = _a.pageLayout, systemLayout = _a.systemLayout, staffSpacing = _a.staffSpacing, staffLayouts = _a.staffLayouts, pageNumber = _a.pageNumber;

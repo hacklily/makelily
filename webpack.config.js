@@ -7,6 +7,10 @@ module.exports = {
   mode: "production",
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
+    fallback: {
+      path: false,
+      fs: false,
+    },
   },
   module: {
     rules: [
@@ -51,15 +55,9 @@ module.exports = {
     filename: "[name].js",
   },
   devServer: {
-    contentBase: dist,
+    static: dist,
   },
-  plugins: [new CopyPlugin([path.resolve(__dirname, "static")])].filter(
-    a => !!a,
-  ),
-
-  node: {
-    fs: "empty",
-    buffer: "empty",
-    http: "empty",
-  },
+  plugins: [
+    new CopyPlugin({ patterns: [path.resolve(__dirname, "static")] }),
+  ].filter((a) => !!a),
 };

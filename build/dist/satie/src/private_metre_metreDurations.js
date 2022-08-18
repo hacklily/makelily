@@ -47,8 +47,8 @@ export function makeDuration(divPerQuarter, time, divisionsInDuration) {
             }
         }
     }
-    throw new Error("Unknown duration " + divisionsInDuration + " at " +
-        (divPerQuarter + " divs per quarter"));
+    throw new Error("Unknown duration ".concat(divisionsInDuration, " at ") +
+        "".concat(divPerQuarter, " divs per quarter"));
 }
 export var _512 = _makeDuration({ count: 512 });
 export var _256 = _makeDuration({ count: 256 });

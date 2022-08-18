@@ -19,11 +19,13 @@ import { Time, Beam, TimeModification, Direction } from "musicxml-interfaces";
 import { IAny } from "musicxml-interfaces/operations";
 import { INoteBuilder, IBarlineBuilder, IAttributesBuilder, IDirectionBuilder, IPrintBuilder } from "musicxml-interfaces/builders";
 import { Document, IMeasure, IMeasurePart, ISegment, Type, IModel } from "./document";
-export declare class StaffBuilder {
-    private _segment;
-    private _patches;
-    private _document;
-    private _idx;
+export declare class BaseBuilder {
+    protected _segment: ISegment;
+    protected _patches: IAny[];
+    protected _document: Document;
+    protected _idx: number;
+}
+export declare class StaffBuilder extends BaseBuilder {
     get patches(): IAny[];
     constructor(segment: ISegment, document: Document, idx?: number);
     at(idx: number): this;
@@ -41,11 +43,7 @@ export declare class StaffBuilder {
     insertSpacer(divs: number): this;
     remove(): this;
 }
-export declare class VoiceBuilder {
-    private _segment;
-    private _patches;
-    private _document;
-    private _idx;
+export declare class VoiceBuilder extends BaseBuilder {
     get patches(): IAny[];
     constructor(segment: ISegment, document: Document, idx?: number);
     at(idx: number): this;
